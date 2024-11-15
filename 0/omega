@@ -16,7 +16,7 @@ FoamFile
 
 dimensions      [0 0 -1 0 0 0 0];
 
-internalField   uniform 3.5;
+internalField   uniform 0.0001;
 
 boundaryField
 {
@@ -32,22 +32,22 @@ boundaryField
     stirrerWall
     {
         type            omegaWallFunction;
-        value           uniform 3.5;
+        value           uniform 0.0001;
     }
     outerWall
     {
         type            omegaWallFunction;
-        value           uniform 3.5;
+        value           uniform 0.0001;
     }
     right
     {
         type            cyclic;
-        value           uniform 3.5;
+        value           uniform 0.0001;
     }
     left
     {
         type            cyclic;
-        value           uniform 3.5;
+        value           uniform 0.0001;
     }
 }
 
