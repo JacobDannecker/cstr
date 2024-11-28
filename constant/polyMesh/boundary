@@ -20,8 +20,8 @@ FoamFile
     {
         type            cyclic;
         inGroups        List<word> 1(cyclic);
-        nFaces          388;
-        startFace       142624;
+        nFaces          100;
+        startFace       26120;
         matchTolerance  0.0001;
         neighbourPatch  left;
         transformType   rotational;
@@ -33,8 +33,8 @@ FoamFile
     {
         type            cyclic;
         inGroups        List<word> 1(cyclic);
-        nFaces          388;
-        startFace       143012;
+        nFaces          100;
+        startFace       26220;
         matchTolerance  0.0001;
         neighbourPatch  right;
         transformType   rotational;
@@ -46,29 +46,29 @@ FoamFile
     {
         type            wall;
         inGroups        List<word> 1(wall);
-        nFaces          200;
-        startFace       143400;
+        nFaces          140;
+        startFace       26320;
     }
     stirrerWall
     {
         type            wall;
         inGroups        List<word> 1(wall);
-        nFaces          496;
-        startFace       143600;
+        nFaces          220;
+        startFace       26460;
     }
     top
     {
         type            empty;
         inGroups        List<word> 1(empty);
-        nFaces          71680;
-        startFace       144096;
+        nFaces          13200;
+        startFace       26680;
     }
     bottom
     {
         type            empty;
         inGroups        List<word> 1(empty);
-        nFaces          71680;
-        startFace       215776;
+        nFaces          13200;
+        startFace       39880;
     }
 )
 
