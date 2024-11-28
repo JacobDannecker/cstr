@@ -16,19 +16,19 @@ FoamFile
 
 application     SRFSimpleFoam;
 
-startFrom       startTime;
+startFrom       latestTime; //startTime; //The solver will always start at the last time directory he can find. If there is only the 0 folder then he will start from 0.
 
-startTime       30000;
+startTime       0;
 
 stopAt          endTime;
 
-endTime         80000;
+endTime         80000; //solver run will be terminated if endTime is reached or if the residuals fall below the values in the fvSolution (residualControl)
 
 deltaT          1;
 
 writeControl    timeStep;
 
-writeInterval   1000;
+writeInterval   5000;
 
 purgeWrite      0;
 
@@ -47,9 +47,15 @@ runTimeModifiable true;
 functions
 {
 	#includeFunc residuals
-	#includeFunc CourantNo
-	#includeFunc yPlus
-    probes
+	//#includeFunc Courant, thats only for unsteady simulations
+	#includeFunc yPlus //for fully resolved boundary layers, yPlus shouldnt exceed 1. yPlus is a boundary field, values are only calculated on wall patches
+	#includeFunc shearStress //the shearStresses will be saved into the time directory at writeTime according the controlDict entry
+	#includeFunc graphCell //writes field values on predefined line into the postProcessing directory at writeTime. More positions can be added, just include graphCell2 in the system folder and #includeFunc graphCell2 in the controlDict
+	//#includeFunc forcesIncompressible //uncomment if you want to determine the torque on the stirrer. The torque can be used to check if the solution reached steady state. Torque should be const. And later on to choose a drive for the stirrer, if it is build.   
+   
+   
+   
+    probes //Nice idea, when steady state is reached all variables should become a constant value at probe position.
     {
         type            probes;
         functionObjectLibs ("libsampling.so");  // Library required for probes
@@ -61,12 +67,14 @@ functions
         (
             p       // Pressure
             U       // Velocity
+            k		//turbulent kinetik energy
+            omega	//specific dissipation rate
         );
 
         // Locations for the probes
         probeLocations
         (
-            (14 15 1)   // Replace with your desired coordinates
+            (0.19 0.08 0.005)   // Replace with your desired coordinates
 
         );
     }

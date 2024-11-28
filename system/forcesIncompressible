@@ -6,21 +6,20 @@
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 Description
-    Writes graph data for specified fields along a line, specified by start and
-    end points. One graph point is generated in each cell that the line
-    intersects.
+    Calculates pressure and viscous forces over specified patches for a case
+    where the solver is incompressible; i.e., pressure is kinematic and has
+    units of m^2/s^2.
 
 \*---------------------------------------------------------------------------*/
 
-start           (0.0744 0.02936 0.005);
-end             (0.368222 0.156239 0.005);
+#includeEtc "caseDicts/postProcessing/forces/forcesIncompressible.cfg"
 
-fields          (k omega U nut p);
+patches     (stirrerWall); // Names of patches on which to calculate forces
 
-axis            distance; // The independent variable of the graph. Can be "x",
-                          // "y", "z", "xyz" (all coordinates written out), or
-                          // "distance" (from the start point).
+rhoInf      1.225;       // Far field density; e.g., 1.225 kg/m^3 for air
 
-#includeEtc "caseDicts/postProcessing/graphs/graphCell.cfg"
+CofR        (0 0 0);         // Centre of rotation; e.g., (0 0 0)
+
+pitchAxis  (0 0 1);    // Pitch axis; e.g., (0 1 0)
 
 // ************************************************************************* //

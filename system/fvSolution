@@ -17,33 +17,53 @@ FoamFile
 solvers
 {
     p
-    {
-        solver          PCG;
-        preconditioner  DIC;
+    {	
+    	solver          GAMG; //Geometric Algebraic Multi-Grid 
+        tolerance       1e-08;
+        relTol          0.005;
+        smoother        GaussSeidel;
+        
+        /*
+        solver          PCG; //Preconditioned Conjugate Gradient
+        preconditioner  DIC; //Diagonal Incomplete Choleskey
         tolerance       1e-06;
         relTol          0.01;
-       
+       */
 
     }
 
     "(Urel|k|epsilon|omega|R|nuTilda)"
     {
+    	solver          GAMG; //Geometric Algebraic Multi-Grid 
+        tolerance       1e-08;
+        relTol          0.005;
+        smoother        GaussSeidel;
+        
+        /*
         solver          smoothSolver;
         smoother        symGaussSeidel;
         tolerance       1e-6;
-        relTol          0.1;
+        relTol          0.01;
+        */
     }
 }
 
-SIMPLE
+SIMPLE //Semi Implicit Method for Pressure Linked Equations = SIMPLE, this is the algorithm for pressure velocity coupling
 {
-    nNonOrthogonalCorrectors 0;
+    nNonOrthogonalCorrectors 1;
     consistent          yes;
-    pRefCell    0;
+    pRefCell    0; //pRefCell and pRefValue must be defined if you simulate closed cavities where no pressure boundary condition can be defined
     pRefValue    0;
+    
+    residualControl // Added, the solver run will be terminated if all residuals fall below 1e-5
+    {
+        p               1e-5;
+        U               1e-5;
+        "(k|omega|epsilon)" 1e-5;
+    }
 }
 
-relaxationFactors
+relaxationFactors //can be tweaked to stabelize or accelerate the solution procedure. Small values make the solution procedure more stable but also slows it down. Larger values accelerate the solution procedure by allowing larger changes in between two iterations but this could also make it more unstable. Your solver run could diverge.
 {
     equations
     {

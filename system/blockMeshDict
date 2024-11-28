@@ -17,11 +17,11 @@ convertToMeters 0.01;
 
 refinement 4;
 
-cellsX0 #calc "37 * $refinement"; // Blocks 0 4
-cellsX1 #calc "60 * $refinement"; // Blocks 1 2 3
+cellsX0 #calc "10 * $refinement"; // Blocks 0 4
+cellsX1 #calc "15 * $refinement"; // Blocks 1 2 3
 
-cellsY0 #calc "20 * $refinement"; // Blocks 0 1 3 4
-cellsY1 #calc "10 * $refinement"; // Block 2
+cellsY0 #calc "15 * $refinement"; // Blocks 0 1 3 4
+cellsY1 #calc "5 * $refinement"; // Block 2
 
 // Inner Blocks
 gradingInner0 8;

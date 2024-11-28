@@ -5,17 +5,21 @@
     \\  /    A nd           | Version:  10
      \\/     M anipulation  |
 \*---------------------------------------------------------------------------*/
-FoamFile
-{
-    format      ascii;
-    class       dictionary;
-    object      decomposeParDict;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains  4;
-method              scotch;
+// controlDict settings
+startTime       0;
 
+stopAt          endTime;
+endTime         1;
 
+deltaT          1e-4;
+
+writeControl    runTime;
+writeInterval   1e-2;
+
+// transportProperties settings
+DT      DT [ 0 2 -1 0 0 0 0 ] 1e-9;
+
+#includeEtc "caseDicts/solvers/scalarTransport/scalarTransportDict.cfg"
 
 // ************************************************************************* //
