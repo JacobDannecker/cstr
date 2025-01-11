@@ -8,46 +8,46 @@
 FoamFile
 {
     format      ascii;
-    class       volScalarField;
+    class       volVectorField;
     location    "0";
-    object      k;
+    object      Urel;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -2 0 0 0 0];
+dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform 0.005;
+internalField   uniform (0 0 0);
 
 boundaryField
 {
     top
     {
         type            empty;
+        
     }
     bottom
     {
-        type            empty;
-
-    }
-    stirrerWall
-    {
-        type            kqRWallFunction;
-        value           uniform 0.0001;
+        type		empty;
     }
     outerWall
     {
-        type            kqRWallFunction;
-        value           uniform 0.0001;
+        type            noSlip; //SRFWallVelocity;
+	//value           uniform (0 0 0);    // Initial value
     }
+    stirrerWall
+    {
+       // type            noSlip;
+       type SRFWallVelocity;
+       value uniform (0 0 0);
+    }
+    
     right
     {
         type            cyclic;
-        value           uniform 0.0001;
     }
     left
     {
         type            cyclic;
-        value           uniform 0.0001;
     }
 }
 
